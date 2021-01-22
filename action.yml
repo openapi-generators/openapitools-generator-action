@@ -5,10 +5,10 @@ inputs:
   generator:
     description: The name of the generator to use e.g. "typescript-angular"
     required: true
-  config-path:
+  config-file:
     description: The path to the config file to be passed along to the OpenAPITools generator
     required: true
-  openapi-document-path:
+  openapi-file:
     description: The path to the openapi document to generate a client library for
     required: false
     default: openapi.json
