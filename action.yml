@@ -1,0 +1,26 @@
+name: "Generate Client Library w/ the OpenAPITools Generator"
+description: ""
+
+inputs: 
+  generator:
+    description: The name of the generator to use e.g. "typescript-angular"
+    required: true
+  config-path:
+    description: The path to the config file to be passed along to the OpenAPITools generator
+    required: true
+  openapi-document-path:
+    description: The path to the openapi document to generate a client library for
+    required: false
+    default: openapi.json
+
+runs:
+  using: docker
+  image: openapitools/openapi-generator-cli
+  args:
+    - "generate"
+    - "-g ${{ inputs.generator }}"
+    - "-c /github/workspace/generator-config.yml"
+    - "-i /github/workspace/${{ inputs.openapi-document-path }}"
+    - "-o /github/workspace/${{ inputs.generator }}-client"
+          
+    
