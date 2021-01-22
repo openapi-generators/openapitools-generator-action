@@ -15,7 +15,7 @@ inputs:
 
 runs:
   using: docker
-  image: openapitools/openapi-generator-cli
+  image: docker://openapitools/openapi-generator-cli
   args:
     - "generate"
     - "-g ${{ inputs.generator }}"
