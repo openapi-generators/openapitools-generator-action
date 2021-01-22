@@ -19,7 +19,7 @@ runs:
   args:
     - "generate"
     - "-g ${{ inputs.generator }}"
-    - "-c /github/workspace/generator-config.yml"
+    - "-c /github/workspace/${{ inputs.config-file }}"
     - "-i /github/workspace/${{ inputs.openapi-document-path }}"
     - "-o /github/workspace/${{ inputs.generator }}-client"
           
