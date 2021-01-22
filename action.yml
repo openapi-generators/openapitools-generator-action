@@ -18,7 +18,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        docker run --rm --workdir /github/workspace -v "/home/runner/work/frt/frt":"/github/workspace" \
+        docker run --workdir /github/workspace -v "/home/runner/work/frt/frt":"/github/workspace" \
           openapitools/openapi-generator-cli generate \
           -i /github/workspace/${{ inputs.openapi-file }} \
           -g ${{ inputs.generator }} \
