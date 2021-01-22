@@ -14,13 +14,23 @@ inputs:
     default: openapi.json
 
 runs:
-  using: docker
-  image: docker://openapitools/openapi-generator-cli
-  args:
-    - generate
-    - -i /github/workspace/${{ inputs.openapi-file }}
-    - -g ${{ inputs.generator }}
-    - -c /github/workspace/${{ inputs.config-file }}
-    - -o /github/workspace/${{ inputs.generator }}-client
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        docker run --rm -v "/home/runner/work/frt/frt":"/github/workspace" \
+          openapitools/openapi-generator-cli generate \
+          -i /github/workspace/${{ inputs.openapi-file }} \
+          -g ${{ inputs.generator }} \
+          -c /github/workspace/${{ inputs.config-file }} \
+          -o /github/workspace/${{ inputs.generator }}-client
+  # using: docker
+  # image: docker://openapitools/openapi-generator-cli
+  # args:
+  #   - generate
+  #   - -i /github/workspace/${{ inputs.openapi-file }}
+  #   - -g ${{ inputs.generator }}
+  #   - -c /github/workspace/${{ inputs.config-file }}
+  #   - -o /github/workspace/${{ inputs.generator }}-client
           
     
