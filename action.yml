@@ -15,13 +15,12 @@ inputs:
 
 runs:
   using: docker
-  image: Dockerfile
-  # image: docker://openapitools/openapi-generator-cli
-  # args:
-  #   - "generate"
-  #   - "-g ${{ inputs.generator }}"
-  #   - "-c /github/workspace/${{ inputs.config-file }}"
-  #   - "-i /github/workspace/${{ inputs.openapi-file }}"
-  #   - "-o /github/workspace/${{ inputs.generator }}-client"
+  image: docker://openapitools/openapi-generator-cli
+  args:
+    - generate
+    - -g ${{ inputs.generator }}
+    - -c /github/workspace/${{ inputs.config-file }}
+    - -i /github/workspace/${{ inputs.openapi-file }}
+    - -o /github/workspace/${{ inputs.generator }}-client
           
     
