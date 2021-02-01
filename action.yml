@@ -1,5 +1,8 @@
 name: "Generate Client Library w/ the OpenAPITools Generator"
 description: "Generates a client library from an openapifile using OpenAPITools' generator"
+branding:
+  icon: target
+  color: green
 
 inputs: 
   generator:
