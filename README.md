@@ -36,7 +36,7 @@ jobs:
 
       # Use the action to generate a client package
       # This uses the default path for the openapi document and thus assumes there is an openapi.json in the current workspace.
-      - name: Generate Python Client
+      - name: Generate Angular Client
         uses: triaxtec/openapi-generator-action@main
         with:
           generator: typescript-angular
