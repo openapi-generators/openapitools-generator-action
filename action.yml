@@ -1,9 +1,9 @@
 name: "Generate Client Library w/ the OpenAPITools Generator"
-description: ""
+description: "Generates a client library from an openapifile using OpenAPITools' generator"
 
 inputs: 
   generator:
-    description: The name of the generator to use e.g. "typescript-angular"
+    description: The name of the generator (i.e. the language to generate the client library in) to use e.g. "typescript-angular"
     required: true
   config-file:
     description: The path to the config file to be passed along to the OpenAPITools generator
