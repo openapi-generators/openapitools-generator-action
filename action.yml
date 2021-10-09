@@ -29,6 +29,11 @@ runs:
   steps:
     - shell: bash
       run: |
-        ./entrypoint.sh ${{ inputs.generator }} ${{ inputs.config-file }} ${{ inputs.openapi-file }} \
-          ${{ inputs.openapi-url }} ${{ inputs.generator-tag }}
+        document=${{ inputs.openapi-url }} && [[ ${{ inputs.openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
+        docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
+          "openapitools/openapi-generator-cli:${{ inputs.generator-tag }}" generate \
+          -i "$document" \
+          -g "${{ inputs.generator }}" \
+          -c "/github/workspace/${{ inputs.config-file }}" \
+          -o "/github/workspace/${{ inputs.generator }}-client"
     
