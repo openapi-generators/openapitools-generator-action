@@ -13,3 +13,12 @@ jobs:
           generator: rust
           config-file: test_data/config.yml
           openapi-url: https://raw.githubusercontent.com/openapi-generators/openapi-python-client/main/end_to_end_tests/openapi.json
+  smoke-test-file:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: openapi-generators/openapitools-generator-action@2-remote-spec
+        with:
+          generator: rust
+          config-file: test_data/config.yml
+          openapi-file: test_data/openapi.json
