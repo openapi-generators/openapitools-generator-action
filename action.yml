@@ -25,7 +25,7 @@ runs:
   steps:
     - shell: bash
       run: |
-        document=${{ openapi-url }} && [[ ${{ openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
+        document=${{ inputs.openapi-url }} && [[ ${{ inputs.openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
         docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
           openapitools/openapi-generator-cli generate \
           -i $document \
