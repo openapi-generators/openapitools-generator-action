@@ -12,20 +12,17 @@ inputs:
     description: The path to the config file to be passed along to the OpenAPITools generator
     required: true
   openapi-file:
-    description: The path to the openapi document to generate a client library for
+    description: The path to the OpenAPI document to generate a client library for
     required: false
     default: openapi.json
+  openapi-url:
+    description: If set, the OpenAPI document will be loaded from this URL instead of openapi-file.
+    required: false
+    default: UNSET
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: |
-        docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
-          openapitools/openapi-generator-cli generate \
-          -i /github/workspace/${{ inputs.openapi-file }} \
-          -g ${{ inputs.generator }} \
-          -c /github/workspace/${{ inputs.config-file }} \
-          -o /github/workspace/${{ inputs.generator }}-client
-          
+      run: ./entrypoint.sh ${{ inputs.generator }} ${{ inputs.config-file }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }}
     
