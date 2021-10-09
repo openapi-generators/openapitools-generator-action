@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@2-remote-spec
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@2-remote-spec
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
