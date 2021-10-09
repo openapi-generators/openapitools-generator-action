@@ -15,6 +15,10 @@ The path (with respect to the current directory/the workspace) to the config fil
 
 The path (with respect to the current directory/the workspace) to the OpenAPI document (both JSON and YAML are supported). Defaults to "openapi.json" (i.e. a file in the current directory called openapi.json).
 
+### `openapi-url`
+
+The URL to load the OpenAPI document from. If set, `openapi-file` will be ignored.
+
 ## Outputs
 
 No outputs are returned. The generated client is placed in the current directory. The name of the package (unless configured differently) will be `generator-name-client` where "generator-name" is (unsurprisingly) the name of the generator used to generate the client.

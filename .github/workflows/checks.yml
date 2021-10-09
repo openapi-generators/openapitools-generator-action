@@ -1,0 +1,13 @@
+name: Run Checks
+
+on:
+  push
+
+jobs:
+  smoke-test-url:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          openapi-url: https://raw.githubusercontent.com/openapi-generators/openapi-python-client/main/end_to_end_tests/openapi.json
