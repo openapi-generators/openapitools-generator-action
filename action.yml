@@ -19,10 +19,16 @@ inputs:
     description: If set, the OpenAPI document will be loaded from this URL instead of openapi-file.
     required: false
     default: UNSET
+  generator-tag:
+    description: The Docker tag of the openapitools/openapi-generator-cli image to use.
+    required: false
+    default: latest
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: ./entrypoint.sh ${{ inputs.generator }} ${{ inputs.config-file }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }}
+      run: |
+        ./entrypoint.sh ${{ inputs.generator }} ${{ inputs.config-file }} ${{ inputs.openapi-file }} \
+          ${{ inputs.openapi-url }} ${{ inputs.generator-tag }}
     
