@@ -10,4 +10,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: openapi-generators/openapitools-generator-action@2-remote-spec
         with:
+          generator: rust
+          config-file: test_data/config.yml
           openapi-url: https://raw.githubusercontent.com/openapi-generators/openapi-python-client/main/end_to_end_tests/openapi.json
