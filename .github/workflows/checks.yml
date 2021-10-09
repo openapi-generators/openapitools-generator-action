@@ -31,4 +31,4 @@ jobs:
           generator: rust
           config-file: test_data/config.yml
           openapi-file: test_data/openapi.json
-          generator-tag: 5.0.0
+          generator-tag: v5.0.0
