@@ -30,12 +30,10 @@ runs:
   steps:
     - shell: bash
       run: |
-        document=${{ inputs.openapi-url }} && [[ ${{ inputs.openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
-        config="-c /github/workspace/${{ inputs.config-file }}" && [[ ${{ inputs.config-file }} = "UNSET" ]] && ""
-        docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
-          "openapitools/openapi-generator-cli:${{ inputs.generator-tag }}" generate \
-          -i "$document" \
-          -g "${{ inputs.generator }}" \
-          "$config" \
-          -o "/github/workspace/${{ inputs.generator }}-client"
+        cmd='docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace"'
+        cmd='$cmd "openapitools/openapi-generator-cli:${{ inputs.generator-tag }}" generate'
+        if [[ ${{ inputs.openapi-url }} = "UNSET" ]]; then cmd="$cmd -i /github/workspace/${{ inputs.openapi-file }}"; else cmd="$cmd -i ${{ inputs.openapi-url }}"; fi
+        if [[ ${{ inputs.config-file }} != "UNSET" ]]; then  cmd="$cmd -c /github/workspace/${{ inputs.config-file }}"; fi
+        cmd="$cmd -g ${{ inputs.generator }} -o /github/workspace/${{ inputs.generator }}-client"
+        eval $cmd
     
