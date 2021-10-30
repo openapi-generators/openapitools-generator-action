@@ -8,27 +8,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@v1
+      - uses: openapi-generators/openapitools-generator-action@optional-config-file
         with:
           generator: rust
           config-file: test_data/config.yml
           openapi-url: https://raw.githubusercontent.com/openapi-generators/openapi-python-client/main/end_to_end_tests/openapi.json
+      - run: cd rust-client
   smoke-test-file:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@v1
+      - uses: openapi-generators/openapitools-generator-action@optional-config-file
         with:
           generator: rust
           config-file: test_data/config.yml
           openapi-file: test_data/openapi.json
+      - run: cd rust-client
   test-openapi-version:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@v1
+      - uses: openapi-generators/openapitools-generator-action@optional-config-file
         with:
           generator: rust
           config-file: test_data/config.yml
           openapi-file: test_data/openapi.json
           generator-tag: v5.0.0
+      - run: cd rust-client
+  test-no-config:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: openapi-generators/openapitools-generator-action@optional-config-file
+        with:
+          generator: rust
+          openapi-file: test_data/openapi.json
+      - run: cd rust-client

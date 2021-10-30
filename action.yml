@@ -8,9 +8,10 @@ inputs:
   generator:
     description: The name of the generator (i.e. the language to generate the client library in) to use e.g. "typescript-angular"
     required: true
-  config-file:
-    description: The path to the config file to be passed along to the OpenAPITools generator
-    required: true
+  generator-tag:
+    description: The Docker tag of the openapitools/openapi-generator-cli image to use.
+    required: false
+    default: latest
   openapi-file:
     description: The path to the OpenAPI document to generate a client library for
     required: false
@@ -19,21 +20,13 @@ inputs:
     description: If set, the OpenAPI document will be loaded from this URL instead of openapi-file.
     required: false
     default: UNSET
-  generator-tag:
-    description: The Docker tag of the openapitools/openapi-generator-cli image to use.
+  config-file:
+    description: The path to the config file to be passed along to the OpenAPITools generator
     required: false
-    default: latest
+    default: UNSET
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: |
-        document=${{ inputs.openapi-url }} && [[ ${{ inputs.openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
-        docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
-          "openapitools/openapi-generator-cli:${{ inputs.generator-tag }}" generate \
-          -i "$document" \
-          -g "${{ inputs.generator }}" \
-          -c "/github/workspace/${{ inputs.config-file }}" \
-          -o "/github/workspace/${{ inputs.generator }}-client"
-    
+      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }}
