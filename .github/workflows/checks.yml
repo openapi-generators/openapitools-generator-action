@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@optional-config-file
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@optional-config-file
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@optional-config-file
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
@@ -39,7 +39,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@optional-config-file
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           openapi-file: test_data/openapi.json
