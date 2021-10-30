@@ -9,12 +9,12 @@ cmd = f"{cmd} openapitools/openapi-generator-cli:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
 
 if openapi_url == "UNSET":
-    cmd = f"{cmd} -i /github/workspace/$OPENAPI_FILE"
+    cmd = f"{cmd} -i /github/workspace/{openapi_file}"
 else:
-    cmd = f"{cmd} -i $OPENAPI_URL"
+    cmd = f"{cmd} -i {openapi_url}"
 
 if config_file != "UNSET":
-    cmd = f"{cmd} -c /github/workspace/$CONFIG_FILE"
+    cmd = f"{cmd} -c /github/workspace/{config_file}"
 
 # Call the command and return the exit code
 exit(call(cmd, shell=True))
