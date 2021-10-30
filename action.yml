@@ -35,5 +35,5 @@ runs:
         if [[ ${{ inputs.openapi-url }} = "UNSET" ]]; then cmd="$cmd -i /github/workspace/${{ inputs.openapi-file }}"; else cmd="$cmd -i ${{ inputs.openapi-url }}"; fi
         if [[ ${{ inputs.config-file }} != "UNSET" ]]; then  cmd="$cmd -c /github/workspace/${{ inputs.config-file }}"; fi
         cmd="$cmd -g ${{ inputs.generator }} -o /github/workspace/${{ inputs.generator }}-client"
-        eval $cmd
+        eval "$cmd"
     
