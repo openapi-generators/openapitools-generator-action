@@ -10,7 +10,8 @@ inputs:
     required: true
   config-file:
     description: The path to the config file to be passed along to the OpenAPITools generator
-    required: true
+    required: false
+    default: UNSET
   openapi-file:
     description: The path to the OpenAPI document to generate a client library for
     required: false
@@ -30,10 +31,11 @@ runs:
     - shell: bash
       run: |
         document=${{ inputs.openapi-url }} && [[ ${{ inputs.openapi-url }} = "UNSET" ]] && document="/github/workspace/${{ inputs.openapi-file }}"
+        config='-c "/github/workspace/${{ inputs.config-file }}"' && [[ ${{ inputs.config-file }} = "UNSET" ]] && ""
         docker run -u 1001 --rm --workdir /github/workspace -v "$GITHUB_WORKSPACE":"/github/workspace" \
           "openapitools/openapi-generator-cli:${{ inputs.generator-tag }}" generate \
           -i "$document" \
           -g "${{ inputs.generator }}" \
-          -c "/github/workspace/${{ inputs.config-file }}" \
+          "$config" \
           -o "/github/workspace/${{ inputs.generator }}-client"
     
