@@ -43,4 +43,5 @@ jobs:
         with:
           generator: rust
           openapi-file: test_data/openapi.json
+          command-args: --git-repo-id=openapitools-generator-action --git-host=github.com
       - run: cd rust-client

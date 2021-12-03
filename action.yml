@@ -24,9 +24,12 @@ inputs:
     description: The path to the config file to be passed along to the OpenAPITools generator
     required: false
     default: UNSET
+  command-args:
+    description: If set, the OpenApi generator will used command-args
+    required: false
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }}
+      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.command-args}}
