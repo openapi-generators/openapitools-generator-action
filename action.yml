@@ -25,7 +25,7 @@ inputs:
     required: false
     default: UNSET
   command-args:
-    description: If set, the OpenApi generator will used command-args
+    description: Optional, additional arguments to pass through to the generator.
     required: false
 
 runs:
