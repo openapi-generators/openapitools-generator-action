@@ -54,4 +54,9 @@ jobs:
           generator: rust
           openapi-file: test_data/openapi.json
           command-args: --model-name-prefix=BLAH
+      - name: Save Generated Code
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-command-args-generatoed
+          path: rust-client
       - run: test -f rust-client/src/models/blah_a_model.rs
