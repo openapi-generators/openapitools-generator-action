@@ -23,6 +23,10 @@ The URL to load the OpenAPI document from. If set, `openapi-file` will be ignore
 
 The Docker tag of the openapitools/openapi-generator-cli image to use. See [the DockerHub repo](https://hub.docker.com/r/openapitools/openapi-generator-cli/tags) for available tags.
 
+### `command-args`
+
+Additional arguments to pass through to the [generate](https://openapi-generator.tech/docs/usage#generate) command.
+
 ## Outputs
 
 No outputs are returned. The generated client is placed in the current directory. The name of the package (unless configured differently) will be `generator-name-client` where "generator-name" is (unsurprisingly) the name of the generator used to generate the client.

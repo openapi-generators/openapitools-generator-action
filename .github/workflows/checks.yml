@@ -1,7 +1,8 @@
 name: Run Checks
 
 on:
-  push
+  - push
+  - pull_request
 
 jobs:
   smoke-test-url:
@@ -44,3 +45,13 @@ jobs:
           generator: rust
           openapi-file: test_data/openapi.json
       - run: cd rust-client
+  test-command-args:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: rust
+          openapi-file: test_data/openapi.json
+          command-args: --model-name-prefix=BLAH
+      - run: test -f rust-client/src/models/blah_a_model.rs
