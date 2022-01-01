@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: openapi-generators/openapitools-generator-action@7f5719098d1fa82ad94cecf93f84628cde204d06
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           openapi-file: test_data/openapi.json
