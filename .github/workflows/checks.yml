@@ -44,5 +44,14 @@ jobs:
         with:
           generator: rust
           openapi-file: test_data/openapi.json
-          command-args: --git-repo-id=openapitools-generator-action --git-host=github.com
       - run: cd rust-client
+  test-command-args:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: rust
+          openapi-file: test_data/openapi.json
+          command-args: --model-name-prefix=BLAH
+      - run: test -f rust-client/src/models/blah_a_model.rs
