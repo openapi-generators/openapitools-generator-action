@@ -23,6 +23,10 @@ The URL to load the OpenAPI document from. If set, `openapi-file` will be ignore
 
 The Docker tag of the openapitools/openapi-generator-cli image to use. See [the DockerHub repo](https://hub.docker.com/r/openapitools/openapi-generator-cli/tags) for available tags.
 
+### `template-dir`
+
+The path (with respect to the current directory/the workspace) to the folder containing the template files. See user-defined [templates](https://openapi-generator.tech/docs/templating#modifying-templates) via options.
+
 ### `command-args`
 
 Additional arguments to pass through to the [generate](https://openapi-generator.tech/docs/usage#generate) command.
@@ -52,6 +56,35 @@ jobs:
         with:
           generator: typescript-angular
           config-file: angular-generator-config.yml
+
+      # Do something with the generated client (likely publishing it somewhere)
+      - name: Do something with the client
+        run: |
+          cd typescript-angular-client
+```
+
+## Template example usage
+```yaml
+jobs:
+  generate-angular-client:
+    runs-on: ubuntu-latest
+    name: Example
+    steps:
+
+      # Checkout your code
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Generate your OpenAPI document (if you don't write it manually)
+
+      # Use the action to generate a client package
+      # This uses the default path for the openapi document and thus assumes there is an openapi.json in the current workspace.
+      - name: Generate Angular Client
+        uses: openapi-generators/openapitools-generator-action@v1
+        with:
+          generator: typescript-angular
+          config-file: angular-generator-config.yml
+          template-dir: templates/typescript-angular
 
       # Do something with the generated client (likely publishing it somewhere)
       - name: Do something with the client
