@@ -8,7 +8,7 @@ jobs:
   smoke-test-url:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
@@ -18,7 +18,7 @@ jobs:
   smoke-test-file:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
@@ -28,7 +28,7 @@ jobs:
   smoke-test-template:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
@@ -39,7 +39,7 @@ jobs:
   test-openapi-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
@@ -50,7 +50,7 @@ jobs:
   test-no-config:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
@@ -59,7 +59,7 @@ jobs:
   test-command-args:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
