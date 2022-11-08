@@ -14,6 +14,7 @@ parser.add_argument('command_args', nargs = argparse.REMAINDER)
 args = parser.parse_args()
 
 cmd = "docker run -u 1001 --rm --workdir /github/workspace -v {workspace}:/github/workspace".format(workspace=getenv('GITHUB_WORKSPACE'))
+print(cmd)
 
 cmd = "{cmd} openapitools/openapi-generator-cli:{generator_tag} generate".format(cmd=cmd, generator_tag=args.generator_tag)
 cmd = "{cmd} -g {generator} -o /github/workspace/{generator}-client".format(cmd=cmd, generator=args.generator)
