@@ -9,7 +9,7 @@ template_dir=$6
 command_args=$7
 workspace_files=$8
 
-cmd="docker run -u 1001 --rm --workdir /github/workspace"
+cmd="docker run -u 1001 --rm --privileged --workdir /github/workspace"
 
 if [ "$workspace_files" = "UNSET" ]; then
     cmd="$cmd -v $GITHUB_WORKSPACE:/github/workspace"
