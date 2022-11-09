@@ -8,7 +8,7 @@ config_file=$5
 template_dir=$6
 command_args=$7
 
-cmd="docker run --rm --workdir /github/workspace -v $GITHUB_WORKSPACE:/github/workspace"
+cmd="docker run -u runner --rm --workdir /github/workspace -v $GITHUB_WORKSPACE:/github/workspace"
 cmd="$cmd openapitools/openapi-generator-cli:$generator_tag generate"
 cmd="$cmd -g $generator -o /github/workspace/$generator-client"
 
