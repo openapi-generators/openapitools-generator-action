@@ -31,13 +31,9 @@ inputs:
   command-args:
     description: Optional, additional arguments to pass through to the generator.
     required: false
-  workspace-path:
-    description: Optional, path to folder containing repo files, if not provided, GITHUB_WORKSPACE env will be used.
-    required: false
-    default: UNSET
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} "${{ inputs.command-args}}" ${{ inputs.workspace-path }}
+      run: ${{ github.action_path }}/entrypoint.sh ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} "${{ inputs.command-args}}"
