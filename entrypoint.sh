@@ -1,37 +1,35 @@
-from subprocess import call
-from os import getenv
-import argparse
+#!/bin/bash
 
-parser = argparse.ArgumentParser(description='Generate openapi SDKs.')
-parser.add_argument('generator', help='name of openapi supported generator')
-parser.add_argument('generator_tag')
-parser.add_argument('openapi_file')
-parser.add_argument('openapi_url')
-parser.add_argument('config_file')
-parser.add_argument('template_dir')
-parser.add_argument('command_args', nargs = argparse.REMAINDER)
+generator=$1
+generator_tag=$2
+openapi_file=$3
+openapi_url=$4
+config_file=$5
+template_dir=$6
+command_args=$7
 
-args = parser.parse_args()
+cmd = "docker run -u 1001 --rm --workdir /github/workspace -v $GITHUB_WORKSPACE:/github/workspace"
+cmd = "$cmd openapitools/openapi-generator-cli:$generator_tag generate"
+cmd = "$cmd -g $generator -o /github/workspace/$generator-client"
 
-cmd = "docker run -u 1001 --rm --workdir /github/workspace -v {workspace}:/github/workspace".format(workspace=getenv('GITHUB_WORKSPACE'))
-print(cmd)
+if ["$openapi_url" = "UNSET"]; then
+    cmd = "$cmd -i /github/workspace/$openapi_file"
+else
+    cmd = "$cmd -i $openapi_url"
+fi
 
-cmd = "{cmd} openapitools/openapi-generator-cli:{generator_tag} generate".format(cmd=cmd, generator_tag=args.generator_tag)
-cmd = "{cmd} -g {generator} -o /github/workspace/{generator}-client".format(cmd=cmd, generator=args.generator)
+if ["$config_file" != "UNSET"]; then
+    cmd = "$cmd -c /github/workspace/$config_file"
+fi
 
-if args.openapi_url == "UNSET":
-    cmd = "{cmd} -i /github/workspace/{openapi_file}".format(cmd=cmd, openapi_file=args.openapi_file)
-else:
-    cmd = "{cmd} -i {openapi_url}".format(cmd=cmd, openapi_url=args.openapi_url)
+if ["$template_dir" != "UNSET"]; then
+    cmd = "$cmd -t /github/workspace/$template_dir"
+fi
 
-if args.config_file != "UNSET":
-    cmd = "{cmd} -c /github/workspace/{config_file}".format(cmd=cmd, config_file=args.config_file)
+if [-n "$command_args"]; then
+    cmd = "$cmd $command_args"
+fi
 
-if args.template_dir != "UNSET":
-    cmd = "{cmd} -t /github/workspace/{template_dir}".format(cmd=cmd, template_dir=args.template_dir)
+echo "Final command: $cmd"
 
-if args.command_args:
-    cmd = "{cmd} {command_args}".format(cmd=cmd, command_args=' '.join(args.command_args))
-
-# Call the command and return the exit code
-exit(call(cmd, shell=True))
+eval $cmd
