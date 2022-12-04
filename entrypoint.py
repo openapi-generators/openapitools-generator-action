@@ -9,15 +9,21 @@ cmd = f"{cmd} openapitools/openapi-generator-cli:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
 
 if openapi_url == "UNSET":
-    cmd = f"{cmd} -i /github/workspace/{openapi_file}"
+    if not openapi_file.startswith("/"):
+        openapi_file = f"/github/workspace/{openapi_file}"
+    cmd = f"{cmd} -i {openapi_file}"
 else:
     cmd = f"{cmd} -i {openapi_url}"
 
 if config_file != "UNSET":
-    cmd = f"{cmd} -c /github/workspace/{config_file}"
+    if not config_file.startswith("/"):
+        config_file = f"/github/workspace/{config_file}"
+    cmd = f"{cmd} -c {config_file}"
 
 if template_dir != "UNSET":
-    cmd = f"{cmd} -t /github/workspace/{template_dir}"
+    if not template_dir.startswith("/"):
+        template_dir = f"/github/workspace/{template_dir}"
+    cmd = f"{cmd} -t {template_dir}"
 
 if args:
     cmd = f"{cmd} {' '.join(args)}"
