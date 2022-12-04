@@ -9,11 +9,13 @@ The generator you wish to use (i.e. the language you want to generate a client l
 
 ### `config-file`
 
-The path (with respect to the current directory/the workspace) to the config file to be used with `openapi-generator`. For information on what can be configured, see [the page on customization in the repo](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/customization.md).
+The path to the config file to be used with `openapi-generator`. Paths that do not start with `/` are assumed to be relative to the root of the repository. 
+
+For information on what can be configured, see [the page on customization in the repo](https://github.com/OpenAPITools/openapi-generator/blob/master/docs/customization.md).
 
 ### `openapi-file`
 
-The path (with respect to the current directory/the workspace) to the OpenAPI document (both JSON and YAML are supported). Defaults to "openapi.json" (i.e. a file in the current directory called openapi.json).
+The path to the OpenAPI document (both JSON and YAML are supported). Defaults to "openapi.json" (i.e. a file in the current directory called openapi.json). Paths that do not start with `/` are assumed to be relative to the root of the repository.
 
 ### `openapi-url`
 
@@ -25,7 +27,9 @@ The Docker tag of the openapitools/openapi-generator-cli image to use. See [the 
 
 ### `template-dir`
 
-The path (with respect to the current directory/the workspace) to the folder containing the template files. See user-defined [templates](https://openapi-generator.tech/docs/templating#modifying-templates) via options.
+The path to the folder containing the template files. Paths that do not start with `/` are assumed to be relative to the root of the repository. 
+
+See user-defined [templates](https://openapi-generator.tech/docs/templating#modifying-templates) via options.
 
 ### `command-args`
 
