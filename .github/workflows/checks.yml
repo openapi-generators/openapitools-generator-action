@@ -33,7 +33,7 @@ jobs:
         with:
           generator: rust
           config-file: test_data/config.yml
-          openapi-file: /openapi.json
+          openapi-file: /github/workspace/test_data/openapi.json
       - run: cd rust-client
   smoke-test-absolute-config:
     runs-on: ubuntu-latest
