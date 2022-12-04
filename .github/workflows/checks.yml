@@ -29,17 +29,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: openapi-generators/openapitools-generator-action@16-absolute-files
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
-          openapi-file: /github/workspace/test_data/openapi.json
+          openapi-file: /openapi.json
       - run: cd rust-client
   smoke-test-absolute-config:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: openapi-generators/openapitools-generator-action@16-absolute-files
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: /github/workspace/test_data/config.yml
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: openapi-generators/openapitools-generator-action@16-absolute-files
+      - uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           config-file: test_data/config.yml
