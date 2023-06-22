@@ -1,10 +1,10 @@
 from subprocess import call
 from sys import argv
-from os import getenv
+from os import getenv, getuid
 
 (_, generator, generator_tag, openapi_file, openapi_url, config_file, template_dir, *args) = argv
 
-cmd = f"docker run -u {os.getuid()}:1001 --rm --workdir /github/workspace -v {getenv('GITHUB_WORKSPACE')}:/github/workspace"
+cmd = f"docker run -u {getuid()}:1001 --rm --workdir /github/workspace -v {getenv('GITHUB_WORKSPACE')}:/github/workspace"
 cmd = f"{cmd} openapitools/openapi-generator-cli:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
 
