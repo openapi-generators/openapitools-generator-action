@@ -12,6 +12,10 @@ inputs:
     description: The Docker repository uses as source for openapitools/openapi-generator-cli image.
     required: false
     default: "docker.io"
+  docker-image:
+    description: The Docker image used by the generator.
+    required: false
+    default: "openapitools/openapi-generator-cli"
   generator-tag:
     description: The Docker tag of the openapitools/openapi-generator-cli image to use.
     required: false
@@ -40,4 +44,4 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.docker-repository }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.command-args}}
+      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.docker-repository }} ${{ inputs.docker-image }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.command-args}}

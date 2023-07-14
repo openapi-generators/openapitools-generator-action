@@ -25,6 +25,10 @@ The URL to load the OpenAPI document from. If set, `openapi-file` will be ignore
 
 The Docker repository uses as source for openapitools/openapi-generator-cli image.
 
+### `docker-image`
+
+The Docker image used by the generator.
+
 ### `generator-tag`
 
 The Docker tag of the openapitools/openapi-generator-cli image to use. See [the DockerHub repo](https://hub.docker.com/r/openapitools/openapi-generator-cli/tags) for available tags.
