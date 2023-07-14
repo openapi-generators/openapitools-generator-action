@@ -8,6 +8,10 @@ inputs:
   generator:
     description: The name of the generator (i.e. the language to generate the client library in) to use e.g. "typescript-angular"
     required: true
+  docker-repository:
+    description: The Docker repository uses as source for openapitools/openapi-generator-cli image.
+    required: false
+    default: "docker.io"
   generator-tag:
     description: The Docker tag of the openapitools/openapi-generator-cli image to use.
     required: false
@@ -36,4 +40,4 @@ runs:
   using: composite
   steps:
     - shell: bash
-      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.command-args}}
+      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.docker-repository }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.command-args}}
