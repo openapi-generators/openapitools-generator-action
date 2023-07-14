@@ -21,6 +21,10 @@ The path to the OpenAPI document (both JSON and YAML are supported). Defaults to
 
 The URL to load the OpenAPI document from. If set, `openapi-file` will be ignored.
 
+### `docker-repository`
+
+The Docker repository uses as source for openapitools/openapi-generator-cli image.
+
 ### `generator-tag`
 
 The Docker tag of the openapitools/openapi-generator-cli image to use. See [the DockerHub repo](https://hub.docker.com/r/openapitools/openapi-generator-cli/tags) for available tags.
