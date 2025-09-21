@@ -101,9 +101,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: openapi-generators/openapitools-generator-action@v1
+      - name: Generate with environment variables
+        env:
+          _JAVA_OPTIONS: "-DmaxYamlCodePoints=99999999"
+        uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: rust
           openapi-file: test_data/openapi.json
-          env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999"
       - run: cd rust-client

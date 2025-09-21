@@ -39,12 +39,9 @@ inputs:
   command-args:
     description: Optional, additional arguments to pass through to the generator.
     required: false
-  env:
-    description: Optional, environment variables to pass to the generator. Provide as key=value pairs, one per line or separated by spaces.
-    required: false
 
 runs:
   using: composite
   steps:
     - shell: bash
-      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.docker-repository }} ${{ inputs.docker-image }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.env }} ${{ inputs.command-args}}
+      run: python ${{ github.action_path }}/entrypoint.py ${{ inputs.generator }} ${{ inputs.docker-repository }} ${{ inputs.docker-image }} ${{ inputs.generator-tag }} ${{ inputs.openapi-file }} ${{ inputs.openapi-url }} ${{ inputs.config-file }} ${{ inputs.template-dir }} ${{ inputs.command-args}}

@@ -43,31 +43,43 @@ See user-defined [templates](https://openapi-generator.tech/docs/templating#modi
 
 Additional arguments to pass through to the [generate](https://openapi-generator.tech/docs/usage#generate) command.
 
-### `env`
+## Environment Variables
 
-Optional, environment variables to pass to the generator. Provide as key=value pairs, one per line or separated by spaces. This is useful for handling large OpenAPI documents or configuring the generator environment.
+The action automatically passes through certain environment variables to the OpenAPI Generator container. You can set these using GitHub Actions' built-in `env:` feature.
 
-Examples:
+### Supported Environment Variables
+
+The following environment variables are automatically passed through when set:
+- `_JAVA_OPTIONS` - Java runtime options (useful for handling large YAML files)
+- `JAVA_OPTS` - Additional Java options
+- `NODE_ENV` - Node.js environment setting
+- `DEBUG` - Debug mode flag
+- `OPENAPI_GENERATOR_VERSION` - Override generator version
+
+### Usage Examples
 
 For handling large YAML files:
 ```yaml
-with:
-  env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999"
+- name: Generate Client
+  env:
+    _JAVA_OPTIONS: "-DmaxYamlCodePoints=99999999"
+  uses: openapi-generators/openapitools-generator-action@v1
+  with:
+    generator: powershell
+    openapi-file: large-redfish-spec.yaml
 ```
 
-Multiple environment variables (space separated):
+Multiple environment variables:
 ```yaml
-with:
-  env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999 NODE_ENV=production"
-```
-
-Multiple environment variables (multi-line):
-```yaml
-with:
-  env: |
-    _JAVA_OPTIONS=-DmaxYamlCodePoints=99999999
-    NODE_ENV=production
-    DEBUG=true
+- name: Generate Client
+  env:
+    _JAVA_OPTIONS: "-DmaxYamlCodePoints=99999999"
+    NODE_ENV: "production"
+    DEBUG: "true"
+  uses: openapi-generators/openapitools-generator-action@v1
+  with:
+    generator: typescript-angular
+    openapi-file: spec.yaml
 ```
 
 ## Outputs

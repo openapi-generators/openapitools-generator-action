@@ -1,19 +1,24 @@
 from subprocess import call
 from sys import argv
-from os import getenv, getuid
+from os import getenv, getuid, environ
 
-(_, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, env_vars, *args) = argv
+(_, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, *args) = argv
 
 cmd = f"docker run -u {getuid()}:1001 --rm --workdir /github/workspace -v {getenv('GITHUB_WORKSPACE')}:/github/workspace"
 
-# Add environment variables if provided
-if env_vars and env_vars != "UNSET":
-    # Parse environment variables - support both multiline and space-separated formats
-    # Split by both newlines and spaces, then filter out empty strings
-    env_pairs = [pair.strip() for pair in env_vars.replace('\n', ' ').split() if pair.strip()]
-    for env_pair in env_pairs:
-        if '=' in env_pair:
-            cmd = f"{cmd} -e '{env_pair}'"
+# Pass through environment variables that are commonly needed for OpenAPI generation
+# This allows users to set these via GitHub Actions env: instead of custom input
+env_vars_to_pass = [
+    '_JAVA_OPTIONS',
+    'JAVA_OPTS', 
+    'NODE_ENV',
+    'DEBUG',
+    'OPENAPI_GENERATOR_VERSION'
+]
+
+for env_var in env_vars_to_pass:
+    if env_var in environ:
+        cmd = f"{cmd} -e {env_var}='{environ[env_var]}'"
 
 cmd = f"{cmd} {docker_repository}/{docker_image}:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
