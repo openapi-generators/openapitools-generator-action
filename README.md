@@ -43,6 +43,15 @@ See user-defined [templates](https://openapi-generator.tech/docs/templating#modi
 
 Additional arguments to pass through to the [generate](https://openapi-generator.tech/docs/usage#generate) command.
 
+### `java-options`
+
+Optional, Java options to pass to the generator via the `_JAVA_OPTIONS` environment variable. This is useful for handling large OpenAPI documents by increasing limits. For example, to increase the YAML code points limit:
+
+```yaml
+with:
+  java-options: "-DmaxYamlCodePoints=99999999"
+```
+
 ## Outputs
 
 No outputs are returned. The generated client is placed in the current directory. The name of the package (unless configured differently) will be `generator-name-client` where "generator-name" is (unsurprisingly) the name of the generator used to generate the client.
