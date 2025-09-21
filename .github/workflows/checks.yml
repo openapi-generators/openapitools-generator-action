@@ -97,7 +97,7 @@ jobs:
           openapi-file: test_data/openapi.json
           command-args: --model-name-prefix=BLAH
       - run: test -f rust-client/src/models/blah_a_model.rs
-  test-java-options:
+  test-env-vars:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -105,5 +105,5 @@ jobs:
         with:
           generator: rust
           openapi-file: test_data/openapi.json
-          java-options: "-DmaxYamlCodePoints=99999999"
+          env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999"
       - run: cd rust-client

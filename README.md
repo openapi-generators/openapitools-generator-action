@@ -43,13 +43,31 @@ See user-defined [templates](https://openapi-generator.tech/docs/templating#modi
 
 Additional arguments to pass through to the [generate](https://openapi-generator.tech/docs/usage#generate) command.
 
-### `java-options`
+### `env`
 
-Optional, Java options to pass to the generator via the `_JAVA_OPTIONS` environment variable. This is useful for handling large OpenAPI documents by increasing limits. For example, to increase the YAML code points limit:
+Optional, environment variables to pass to the generator. Provide as key=value pairs, one per line or separated by spaces. This is useful for handling large OpenAPI documents or configuring the generator environment.
 
+Examples:
+
+For handling large YAML files:
 ```yaml
 with:
-  java-options: "-DmaxYamlCodePoints=99999999"
+  env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999"
+```
+
+Multiple environment variables (space separated):
+```yaml
+with:
+  env: "_JAVA_OPTIONS=-DmaxYamlCodePoints=99999999 NODE_ENV=production"
+```
+
+Multiple environment variables (multi-line):
+```yaml
+with:
+  env: |
+    _JAVA_OPTIONS=-DmaxYamlCodePoints=99999999
+    NODE_ENV=production
+    DEBUG=true
 ```
 
 ## Outputs

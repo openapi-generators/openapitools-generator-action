@@ -2,13 +2,18 @@ from subprocess import call
 from sys import argv
 from os import getenv, getuid
 
-(_, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, java_options, *args) = argv
+(_, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, env_vars, *args) = argv
 
 cmd = f"docker run -u {getuid()}:1001 --rm --workdir /github/workspace -v {getenv('GITHUB_WORKSPACE')}:/github/workspace"
 
-# Add Java options as environment variable if provided
-if java_options and java_options != "UNSET":
-    cmd = f"{cmd} -e _JAVA_OPTIONS='{java_options}'"
+# Add environment variables if provided
+if env_vars and env_vars != "UNSET":
+    # Parse environment variables - support both multiline and space-separated formats
+    # Split by both newlines and spaces, then filter out empty strings
+    env_pairs = [pair.strip() for pair in env_vars.replace('\n', ' ').split() if pair.strip()]
+    for env_pair in env_pairs:
+        if '=' in env_pair:
+            cmd = f"{cmd} -e '{env_pair}'"
 
 cmd = f"{cmd} {docker_repository}/{docker_image}:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
