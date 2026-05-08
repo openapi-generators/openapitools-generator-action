@@ -1,10 +1,17 @@
 from subprocess import call
 from sys import argv
-from os import getenv, getuid
+import platform
 
-(_, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, *args) = argv
+(_, workspace, generator, docker_repository, docker_image, generator_tag, openapi_file, openapi_url, config_file, template_dir, *args) = argv
 
-cmd = f"docker run -u {getuid()}:1001 --rm --workdir /github/workspace -v {getenv('GITHUB_WORKSPACE')}:/github/workspace"
+is_windows = platform.system() == "Windows"
+
+user_flag = ""
+if not is_windows:
+    from os import getuid
+    user_flag = f"-u {getuid()}:1001 "
+
+cmd = f"docker run {user_flag}--rm --workdir /github/workspace -v {workspace}:/github/workspace"
 cmd = f"{cmd} {docker_repository}/{docker_image}:{generator_tag} generate"
 cmd = f"{cmd} -g {generator} -o /github/workspace/{generator}-client"
 
